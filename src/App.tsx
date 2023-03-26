@@ -1,8 +1,6 @@
-import { useState } from 'react'
 import { CreateComandaForm } from './forms/create-comanda-form'
 
-function App() {
-
+function App () {
   return (
     <div>
       <CreateComandaForm/>
