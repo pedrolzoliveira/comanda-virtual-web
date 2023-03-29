@@ -15,8 +15,6 @@ export const CreateComandaForm = () => {
     <Formik
     initialValues={initialValues}
     onSubmit={async values => {
-      console.log({ values })
-
       create(values)
     }}>
         <Form>
