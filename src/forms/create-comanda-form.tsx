@@ -1,6 +1,7 @@
 import 'react'
 import { Formik, Form, Field } from 'formik'
 import { useCreateComanda } from '../hooks/comandas-hooks'
+import { Button } from '../components/button'
 
 const initialValues = {
   name: '',
@@ -14,12 +15,14 @@ export const CreateComandaForm = () => {
     <Formik
     initialValues={initialValues}
     onSubmit={async values => {
+      console.log({ values })
+
       create(values)
     }}>
         <Form>
             <Field name="name"></Field>
             <Field name="cellPhone"></Field>
-            <button type="submit">Criar</button>
+            <Button type='submit'>Enviar</Button>
         </Form>
     </Formik>
   )

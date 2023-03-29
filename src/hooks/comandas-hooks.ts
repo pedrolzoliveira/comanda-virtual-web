@@ -10,3 +10,15 @@ export const useCreateComanda = () => {
     mutationFn: comandasService.create
   })
 }
+
+export const useAddPayment = () => {
+  return useMutation({
+    mutationFn: comandasService.addPayment
+  })
+}
+
+export const useAddCharge = () => {
+  return useMutation({
+    mutationFn: comandasService.addCharge
+  })
+}
