@@ -1,10 +1,9 @@
-import { CreateComandaForm } from './forms/create-comanda-form'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './router'
 
 function App () {
   return (
-    <div className='flex h-screen w-screen items-center justify-center'>
-      <CreateComandaForm/>
-    </div>
+    <RouterProvider router={router}/>
   )
 }
 
