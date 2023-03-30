@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useCreateComanda } from '../hooks/comandas-hooks'
 import { Button } from '../components/button'
 import * as Yup from 'yup'
+import { toast } from 'react-toastify'
 
 interface CreateComandaFormProps {
   onClose: () => void
@@ -25,8 +26,12 @@ export const CreateComandaForm = (props: CreateComandaFormProps) => {
     initialValues={initialValues}
     validationSchema={createComandaSchema}
     onSubmit={async values => {
-      await create(values)
-      props.onClose()
+      try {
+        await create(values)
+        props.onClose()
+      } catch (error) {
+        toast('Número de telefone já cadastrado!', { type: 'error' })
+      }
     }}>
         <Form className='flex w-96 flex-col space-y-3'>
           <h1 className='pb-6 text-2xl font-bold'>Crie uma comanda</h1>
