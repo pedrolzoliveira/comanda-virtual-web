@@ -2,7 +2,11 @@ import 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useCreateComanda } from '../hooks/comandas-hooks'
 import { Button } from '../components/button'
-import Yup from 'yup'
+import * as Yup from 'yup'
+
+interface CreateComandaFormProps {
+  onClose: () => void
+}
 
 const createComandaSchema = Yup.object().shape({
   name: Yup.string().required('Nome é um campo obrigatório'),
@@ -13,19 +17,19 @@ const initialValues = {
   name: '',
   cellPhone: ''
 }
-
-export const CreateComandaForm = () => {
-  const { mutateAsync: create, isLoading } = useCreateComanda()
+export const CreateComandaForm = (props: CreateComandaFormProps) => {
+  const { mutateAsync: create } = useCreateComanda()
 
   return (
     <Formik
     initialValues={initialValues}
     validationSchema={createComandaSchema}
     onSubmit={async values => {
-      create(values)
+      await create(values)
+      props.onClose()
     }}>
         <Form className='flex w-96 flex-col space-y-3'>
-          <h1 className='text-2xl font-bold'>Crie uma comanda</h1>
+          <h1 className='pb-6 text-2xl font-bold'>Crie uma comanda</h1>
           <div className='flex flex-col'>
             <label htmlFor="name">Nome</label>
             <Field className="rounded border px-3 py-2" name="name"></Field>
@@ -40,7 +44,10 @@ export const CreateComandaForm = () => {
               {(error) => <p className='text-red-600'>{error}</p>}
             </ErrorMessage>
           </div>
-          <Button loading={isLoading} type='submit'>Criar</Button>
+          <div className='flex space-x-4 pt-4'>
+            <Button className='w-full bg-red-500' onClick={props.onClose} type='button'>Cancelar</Button>
+            <Button className='w-full' type='submit'>Criar</Button>
+          </div>
         </Form>
     </Formik>
   )
