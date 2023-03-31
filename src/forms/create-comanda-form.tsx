@@ -30,7 +30,9 @@ export const CreateComandaForm = (props: CreateComandaFormProps) => {
         await create(values)
         props.onClose()
       } catch (error) {
-        toast('Número de telefone já cadastrado!', { type: 'error' })
+        if (error instanceof Error) {
+          toast(error.message, { type: 'error' })
+        }
       }
     }}>
         <Form className='flex w-96 flex-col space-y-3'>

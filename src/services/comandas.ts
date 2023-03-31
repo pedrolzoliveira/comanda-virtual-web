@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { type Comanda, type ComandaWithTransactions } from '../types/comanda'
 import { type Transaction } from '../types/transaction'
 
@@ -24,12 +24,21 @@ export const comandasService = {
     const url = new URL('http://localhost:3030/comandas')
     url.searchParams.append('id', id)
     url.searchParams.append('transactions', String(includeTransactions))
+
     const response = await axios.get<Comanda | ComandaWithTransactions>(url.toString())
     return response.data
   },
   create: async (data: CreateComandaData) => {
-    const response = await axios.post<Comanda>('http://localhost:3030/comandas', data)
-    return response.data
+    try {
+      const response = await axios.post<Comanda>('http://localhost:3030/comandas', data)
+      return response.data
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 409) {
+        throw new Error('Celular já cadastrado')
+      }
+
+      throw error
+    }
   },
   addPayment: async (data: AddPaymentData) => {
     const response = await axios.post<Transaction & { type: 'payment' }>('http://localhost:3000/comandas/payments', data)
