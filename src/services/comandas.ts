@@ -20,12 +20,19 @@ interface AddChargeData {
 }
 
 export const comandasService = {
-  get: async (id: string, includeTransactions = false) => {
+  getById: async (id: string, includeTransactions = false) => {
     const url = new URL('http://localhost:3030/comandas')
     url.searchParams.append('id', id)
     url.searchParams.append('transactions', String(includeTransactions))
 
     const response = await axios.get<Comanda | ComandaWithTransactions>(url.toString())
+    return response.data
+  },
+  getAll: async (includeTransactions = false) => {
+    const url = new URL('http://localhost:3030/comandas')
+    url.searchParams.append('transactions', String(includeTransactions))
+
+    const response = await axios.get<Comanda[] | ComandaWithTransactions[]>(url.toString())
     return response.data
   },
   create: async (data: CreateComandaData) => {
