@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Button } from '../components/button'
 import { ComandaCard } from '../components/comanda-card'
 import { useComandas } from '../hooks/comandas-hooks'
+import { AddChargeModal } from '../modals/add-charge-modal'
 import { CreateComandaModal } from '../modals/create-comanda-modal'
 
 export const Home = () => {
@@ -9,8 +10,8 @@ export const Home = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className='flex space-x-4 p-8'>
-      { comandas?.map(comanda => <ComandaCard key={comanda.id} {...comanda}/>) }
+    <div className='grid space-x-4 p-8'>
+      <AddChargeModal isOpen={true} onClose={() => {}}/>
       <CreateComandaModal isOpen={isOpen} onClose={() => { setIsOpen(false) }}/>
       <Button onClick={() => { setIsOpen(true) }}>Abrir modal</Button>
     </div>
