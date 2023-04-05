@@ -1,7 +1,7 @@
 import { Button } from '../components/button'
 import { ComandaCard } from '../components/comanda-card'
 import { useComandas } from '../hooks/comandas-hooks'
-import { useModal } from '../modals/context'
+import { useModal } from '../hooks/modal-hooks'
 
 export const Home = () => {
   const { openModal } = useModal()

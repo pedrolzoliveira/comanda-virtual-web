@@ -1,4 +1,4 @@
-import { useModal } from './context'
+import { useModal } from '../hooks/modal-hooks'
 
 export interface ModalProps {
   children?: React.ReactNode

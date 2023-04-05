@@ -4,7 +4,7 @@ import { useCreateComanda } from '../hooks/comandas-hooks'
 import { Button } from '../components/button'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
-import { useModal } from '../modals/context'
+import { useModal } from '../hooks/modal-hooks'
 
 const createComandaSchema = Yup.object().shape({
   name: Yup.string().required('Nome é um campo obrigatório'),

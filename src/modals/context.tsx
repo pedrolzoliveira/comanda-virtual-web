@@ -1,4 +1,4 @@
-import { createContext, type ReactElement, useContext, useState } from 'react'
+import { createContext, type ReactElement, useState } from 'react'
 import { CreateComandaModal } from './create-comanda-modal'
 
 export const MODAL_TYPES = {
@@ -13,7 +13,7 @@ interface ModalContextValues {
   closeModal: () => void
 }
 
-const ModalContext = createContext<ModalContextValues>({
+export const ModalContext = createContext<ModalContextValues>({
   closeModal: () => {},
   openModal: () => {}
 })
@@ -57,8 +57,4 @@ export const ModalProvider = (props: ModalProviderProps) => {
       {props.children}
     </ModalContext.Provider>
   )
-}
-
-export const useModal = () => {
-  return useContext(ModalContext)
 }
