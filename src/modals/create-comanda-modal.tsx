@@ -1,10 +1,10 @@
-import { Modal, type ModalProps } from './modal'
+import { Modal } from './modal'
 import { CreateComandaForm } from '../forms/create-comanda-form'
 
-export const CreateComandaModal = (props: ModalProps) => {
+export const CreateComandaModal = () => {
   return (
-    <Modal {...props}>
-      <CreateComandaForm onClose={props.onClose}/>
+    <Modal>
+      <CreateComandaForm/>
     </Modal>
   )
 }

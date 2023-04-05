@@ -4,10 +4,7 @@ import { useCreateComanda } from '../hooks/comandas-hooks'
 import { Button } from '../components/button'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
-
-interface CreateComandaFormProps {
-  onClose: () => void
-}
+import { useModal } from '../modals/context'
 
 const createComandaSchema = Yup.object().shape({
   name: Yup.string().required('Nome é um campo obrigatório'),
@@ -19,8 +16,9 @@ const initialValues = {
   cellPhone: ''
 }
 
-export const CreateComandaForm = (props: CreateComandaFormProps) => {
+export const CreateComandaForm = () => {
   const { mutateAsync: create } = useCreateComanda()
+  const { closeModal } = useModal()
 
   return (
     <Formik
@@ -29,7 +27,7 @@ export const CreateComandaForm = (props: CreateComandaFormProps) => {
     onSubmit={async values => {
       try {
         await create(values)
-        props.onClose()
+        closeModal()
       } catch (error) {
         if (error instanceof Error) {
           toast(error.message, { type: 'error' })
@@ -53,7 +51,7 @@ export const CreateComandaForm = (props: CreateComandaFormProps) => {
             </ErrorMessage>
           </div>
           <div className='flex space-x-4 pt-4'>
-            <Button className='w-full bg-red-500' onClick={props.onClose} type='button'>Cancelar</Button>
+            <Button className='w-full bg-red-500' onClick={closeModal} type='button'>Cancelar</Button>
             <Button className='w-full' type='submit'>Criar</Button>
           </div>
         </Form>

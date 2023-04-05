@@ -1,19 +1,16 @@
-import { useState } from 'react'
 import { Button } from '../components/button'
 import { ComandaCard } from '../components/comanda-card'
 import { useComandas } from '../hooks/comandas-hooks'
-import { AddChargeModal } from '../modals/add-charge-modal'
-import { CreateComandaModal } from '../modals/create-comanda-modal'
+import { useModal } from '../modals/context'
 
 export const Home = () => {
+  const { openModal } = useModal()
   const { data: comandas } = useComandas()
-  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className='grid space-x-4 p-8'>
-      <AddChargeModal isOpen={true} onClose={() => {}}/>
-      <CreateComandaModal isOpen={isOpen} onClose={() => { setIsOpen(false) }}/>
-      <Button onClick={() => { setIsOpen(true) }}>Abrir modal</Button>
+      <Button onClick={() => { openModal('create-comanda') }}>Abrir modal</Button>
+      {comandas?.map(comanda => <ComandaCard key={comanda.id} {...comanda}/>)}
     </div>
   )
 }
