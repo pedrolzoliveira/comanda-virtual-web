@@ -1,10 +1,13 @@
 import { createContext, type ReactElement, useContext, useState } from 'react'
 import { ShowModal } from './show-modal'
 
-export type ModalTypes = 'create-comanda' | 'add-charge' | null
+export const MODAL_TYPES = {
+  CREATE_COMANDA: 'create-comanda',
+  ADD_CHARGE: 'add-charge'
+} as const
 
 interface ModalContextValues {
-  openModal: (modal: Exclude<ModalTypes, null>) => void
+  openModal: (modal: typeof MODAL_TYPES[keyof typeof MODAL_TYPES]) => void
   closeModal: () => void
 }
 
@@ -18,9 +21,9 @@ interface ModalProviderProps {
 }
 
 export const ModalProvider = (props: ModalProviderProps) => {
-  const [modal, setModal] = useState<ModalTypes>(null)
+  const [modal, setModal] = useState<typeof MODAL_TYPES[keyof typeof MODAL_TYPES] | null>(null)
 
-  const openModal = (modal: Exclude<ModalTypes, null>) => {
+  const openModal = (modal: typeof MODAL_TYPES[keyof typeof MODAL_TYPES]) => {
     setModal(modal)
   }
 
