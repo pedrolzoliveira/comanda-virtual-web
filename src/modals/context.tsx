@@ -1,4 +1,5 @@
 import { createContext, type ReactElement, useState } from 'react'
+import { AddChargeModal, type AddChargeModalProps } from './add-charge-modal'
 import { CreateComandaModal } from './create-comanda-modal'
 
 export const MODAL_TYPES = {
@@ -6,10 +7,12 @@ export const MODAL_TYPES = {
   ADD_CHARGE: 'add-charge'
 } as const
 
-type OpenModalParams = [typeof MODAL_TYPES['CREATE_COMANDA']] | [typeof MODAL_TYPES['ADD_CHARGE'], string]
+type ModalDataRelation =
+  [typeof MODAL_TYPES['CREATE_COMANDA']] |
+  [typeof MODAL_TYPES['ADD_CHARGE'], AddChargeModalProps]
 
 interface ModalContextValues {
-  openModal: (...params: OpenModalParams) => void
+  openModal: (...params: ModalDataRelation) => void
   closeModal: () => void
 }
 
@@ -18,18 +21,22 @@ export const ModalContext = createContext<ModalContextValues>({
   openModal: () => {}
 })
 
-interface ModalProviderProps {
-  children: ReactElement
+interface ShowModalProps {
+  modalData: ModalDataRelation | null
 }
 
-const ShowModal = ({ modal }: { modal: OpenModalParams | null }) => {
-  if (!modal) {
+const ShowModal = (props: ShowModalProps) => {
+  if (!props.modalData) {
     return null
   }
+  const [modal, data] = props.modalData
 
-  switch (modal[0]) {
+  switch (modal) {
     case 'create-comanda': {
       return <CreateComandaModal/>
+    }
+    case 'add-charge': {
+      return <AddChargeModal {...data}/>
     }
     default: {
       return null
@@ -37,23 +44,27 @@ const ShowModal = ({ modal }: { modal: OpenModalParams | null }) => {
   }
 }
 
-export const ModalProvider = (props: ModalProviderProps) => {
-  const [modal, setModal] = useState<OpenModalParams | null>(null)
+interface ModalProviderProps {
+  children: ReactElement
+}
 
-  const openModal = (...params: OpenModalParams) => {
-    setModal(params)
+export const ModalProvider = (props: ModalProviderProps) => {
+  const [modalData, setModalData] = useState<ModalDataRelation | null>(null)
+
+  const openModal = (...params: ModalDataRelation) => {
+    setModalData(params)
   }
 
   const closeModal = () => {
-    setModal(null)
+    setModalData(null)
   }
 
   return (
     <ModalContext.Provider value={{
-      closeModal,
-      openModal
+      openModal,
+      closeModal
     }}>
-      <ShowModal modal={modal}/>
+      <ShowModal modalData={modalData}/>
       {props.children}
     </ModalContext.Provider>
   )

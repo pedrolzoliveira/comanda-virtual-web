@@ -10,6 +10,9 @@ export const Home = () => {
   return (
     <div className='grid space-x-4 p-8'>
       <Button onClick={() => { openModal('create-comanda') }}>Abrir modal</Button>
+      <Button onClick={() => {
+        openModal('add-charge', { comandaId: '' })
+      }}>Open other modal</Button>
       {comandas?.map(comanda => <ComandaCard key={comanda.id} {...comanda}/>)}
     </div>
   )

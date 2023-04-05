@@ -1,10 +1,10 @@
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { useAddCharge } from '../hooks/comandas-hooks'
+import { useModal } from '../hooks/modal-hooks'
 
 interface AddChargeFormProps {
   comandaId: string
-  onClose: () => void
 }
 
 const addChargeSchema = Yup.object().shape({
@@ -17,8 +17,9 @@ const initialValues = {
   value: 0
 }
 
-export const AddChargeForm = ({ comandaId, onClose }: AddChargeFormProps) => {
+export const AddChargeForm = ({ comandaId }: AddChargeFormProps) => {
   const { mutateAsync: addCharge } = useAddCharge()
+  const { closeModal } = useModal()
 
   return (
     <Formik
@@ -27,7 +28,7 @@ export const AddChargeForm = ({ comandaId, onClose }: AddChargeFormProps) => {
       onSubmit={async values => {
         try {
           await addCharge({ comandaId, ...values })
-          onClose()
+          closeModal()
         } catch (error) {
         }
       }}
