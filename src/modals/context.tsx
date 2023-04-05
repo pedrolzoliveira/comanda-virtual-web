@@ -38,9 +38,6 @@ const ShowModal = (props: ShowModalProps) => {
     case 'add-charge': {
       return <AddChargeModal {...data}/>
     }
-    default: {
-      return null
-    }
   }
 }
 
