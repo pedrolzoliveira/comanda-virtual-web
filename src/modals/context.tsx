@@ -1,13 +1,15 @@
 import { createContext, type ReactElement, useContext, useState } from 'react'
-import { ShowModal } from './show-modal'
+import { CreateComandaModal } from './create-comanda-modal'
 
 export const MODAL_TYPES = {
   CREATE_COMANDA: 'create-comanda',
   ADD_CHARGE: 'add-charge'
 } as const
 
+type OpenModalParams = [typeof MODAL_TYPES['CREATE_COMANDA']] | [typeof MODAL_TYPES['ADD_CHARGE'], string]
+
 interface ModalContextValues {
-  openModal: (modal: typeof MODAL_TYPES[keyof typeof MODAL_TYPES]) => void
+  openModal: (...params: OpenModalParams) => void
   closeModal: () => void
 }
 
@@ -20,11 +22,26 @@ interface ModalProviderProps {
   children: ReactElement
 }
 
-export const ModalProvider = (props: ModalProviderProps) => {
-  const [modal, setModal] = useState<typeof MODAL_TYPES[keyof typeof MODAL_TYPES] | null>(null)
+const ShowModal = ({ modal }: { modal: OpenModalParams | null }) => {
+  if (!modal) {
+    return null
+  }
 
-  const openModal = (modal: typeof MODAL_TYPES[keyof typeof MODAL_TYPES]) => {
-    setModal(modal)
+  switch (modal[0]) {
+    case 'create-comanda': {
+      return <CreateComandaModal/>
+    }
+    default: {
+      return null
+    }
+  }
+}
+
+export const ModalProvider = (props: ModalProviderProps) => {
+  const [modal, setModal] = useState<OpenModalParams | null>(null)
+
+  const openModal = (...params: OpenModalParams) => {
+    setModal(params)
   }
 
   const closeModal = () => {
