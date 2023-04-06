@@ -14,7 +14,7 @@ export const Home = () => {
 
   return (
     <div className='grid space-x-4 p-8'>
-      <Button onClick={handleCreateComanda}>Abrir modal</Button>
+      <Button onClick={handleCreateComanda}>Criar comanda</Button>
       <div className='grid grid-rows-4'>
         {comandas?.map(comanda => <ComandaCard key={comanda.id} {...comanda}/>)}
       </div>
