@@ -36,6 +36,8 @@ const ShowModal = (props: ShowModalProps) => {
       return <CreateComandaModal/>
     }
     case 'add-charge': {
+      console.log(data)
+
       return <AddChargeModal {...data}/>
     }
   }

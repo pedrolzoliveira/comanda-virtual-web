@@ -21,13 +21,23 @@ export const useCreateComanda = () => {
 }
 
 export const useAddPayment = () => {
+  const query = useQueryClient()
+
   return useMutation({
-    mutationFn: comandasService.addPayment
+    mutationFn: comandasService.addPayment,
+    onSuccess: () => {
+      query.invalidateQueries(['comandas'])
+    }
   })
 }
 
 export const useAddCharge = () => {
+  const query = useQueryClient()
+
   return useMutation({
-    mutationFn: comandasService.addCharge
+    mutationFn: comandasService.addCharge,
+    onSuccess: () => {
+      query.invalidateQueries(['comandas'])
+    }
   })
 }

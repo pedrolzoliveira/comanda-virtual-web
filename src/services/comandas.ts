@@ -48,11 +48,11 @@ export const comandasService = {
     }
   },
   addPayment: async (data: AddPaymentData) => {
-    const response = await axios.post<Transaction & { type: 'payment' }>('http://localhost:3000/comandas/payments', data)
+    const response = await axios.post<Transaction & { type: 'payment' }>('http://localhost:3030/comandas/payments', data)
     return response.data
   },
   addCharge: async (data: AddChargeData) => {
-    const response = await axios.post<Transaction & { type: 'charge' }>('http://localhost:3000/comandas/charges', data)
+    const response = await axios.post<Transaction & { type: 'charge' }>('http://localhost:3030/comandas/charges', data)
     return response.data
   }
 } as const
