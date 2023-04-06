@@ -1,11 +1,11 @@
-import { Field, Formik, Form, ErrorMessage } from 'formik'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 import { Button } from '../components/button'
-import { useAddCharge } from '../hooks/comandas-hooks'
+import { useAddPayment } from '../hooks/comandas-hooks'
 import { useModal } from '../hooks/modal-hooks'
 
-const addChargeSchema = Yup.object().shape({
+const addPaymentSchema = Yup.object().shape({
   description: Yup.string(),
   value: Yup.number()
 })
@@ -15,21 +15,21 @@ const initialValues = {
   value: 0
 }
 
-interface AddChargeFormProps {
+interface AddPaymentFormProps {
   comandaId: string
 }
 
-export const AddChargeForm = ({ comandaId }: AddChargeFormProps) => {
-  const { mutateAsync: addCharge } = useAddCharge()
+export const AddPaymentForm = ({ comandaId }: AddPaymentFormProps) => {
+  const { mutateAsync: addPayment } = useAddPayment()
   const { closeModal } = useModal()
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={addChargeSchema}
+      validationSchema={addPaymentSchema}
       onSubmit={async ({ description, value }) => {
         try {
-          await addCharge({ comandaId, description, value })
+          await addPayment({ comandaId, description, value })
           closeModal()
         } catch (error) {
           if (error instanceof Error) {
@@ -39,7 +39,7 @@ export const AddChargeForm = ({ comandaId }: AddChargeFormProps) => {
       }}
     >
       <Form>
-        <h1 className='pb-6 text-2xl font-bold'>Adicione uma cobrança</h1>
+        <h1 className='pb-6 text-2xl font-bold'>Adicione um pagamento</h1>
         <div className='flex flex-col'>
           <label htmlFor="description">Descrição</label>
           <Field className="rounded border px-3 py-2" name="description"></Field>

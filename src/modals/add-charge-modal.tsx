@@ -5,10 +5,10 @@ export interface AddChargeModalProps {
   comandaId: string
 }
 
-export const AddChargeModal = (props: AddChargeModalProps) => {
+export const AddChargeModal = ({ comandaId }: AddChargeModalProps) => {
   return (
     <Modal>
-      <AddChargeForm comandaId={props.comandaId}/>
+      <AddChargeForm comandaId={comandaId}/>
     </Modal>
   )
 }

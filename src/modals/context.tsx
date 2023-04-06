@@ -1,15 +1,18 @@
 import { createContext, type ReactElement, useState } from 'react'
 import { AddChargeModal, type AddChargeModalProps } from './add-charge-modal'
+import { AddPaymentModal, type AddPaymentModalProps } from './add-payment-modal'
 import { CreateComandaModal } from './create-comanda-modal'
 
 export const MODAL_TYPES = {
   CREATE_COMANDA: 'create-comanda',
-  ADD_CHARGE: 'add-charge'
+  ADD_CHARGE: 'add-charge',
+  ADD_PAYMENT: 'add-payment'
 } as const
 
 type ModalDataRelation =
   [typeof MODAL_TYPES['CREATE_COMANDA']] |
-  [typeof MODAL_TYPES['ADD_CHARGE'], AddChargeModalProps]
+  [typeof MODAL_TYPES['ADD_CHARGE'], AddChargeModalProps] |
+  [typeof MODAL_TYPES['ADD_PAYMENT'], AddPaymentModalProps]
 
 interface ModalContextValues {
   openModal: (...params: ModalDataRelation) => void
@@ -36,9 +39,10 @@ const ShowModal = (props: ShowModalProps) => {
       return <CreateComandaModal/>
     }
     case 'add-charge': {
-      console.log(data)
-
       return <AddChargeModal {...data}/>
+    }
+    case 'add-payment': {
+      return <AddPaymentModal {...data}/>
     }
   }
 }
