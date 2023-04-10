@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { useModal } from '../hooks/modal-hooks'
 import { Input } from '../components/input'
 import { useFormik } from 'formik'
+import { Title } from '../components/title'
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Nome é um campo obrigatório'),
@@ -41,7 +42,7 @@ export const CreateComandaForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className='flex w-96 flex-col space-y-3'>
-      <h1 className='pb-6 text-2xl font-bold'>Crie uma comanda</h1>
+      <Title className='pb-6'>Crie uma comanda</Title>
       <div className='flex flex-col'>
         <label htmlFor="name">Nome</label>
         <Input name="name" value={values.name} onChange={handleChange}/>

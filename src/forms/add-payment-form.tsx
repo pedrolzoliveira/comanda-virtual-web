@@ -6,6 +6,7 @@ import { useAddPayment } from '../hooks/comandas-hooks'
 import { useModal } from '../hooks/modal-hooks'
 import { Input } from '../components/input'
 import { CurrencyInput } from '../components/currency-input'
+import { Title } from '../components/title'
 
 const validationSchema = Yup.object().shape({
   description: Yup.string(),
@@ -47,7 +48,7 @@ export const AddPaymentForm = ({ comandaId }: AddPaymentFormProps) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1 className='pb-6 text-2xl font-bold'>Adicione um pagamento</h1>
+      <Title className='pb-6'>Adicione um pagamento</Title>
       <div className='flex flex-col'>
         <label htmlFor="description">Descrição</label>
         <Input name="description" value={values.description} onChange={handleChange}/>
