@@ -9,12 +9,12 @@ import { Title } from '../components/title'
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Nome é um campo obrigatório'),
-  cellPhone: Yup.string().required('Celular é um campo obrigatório')
+  cellphone: Yup.string().required('Celular é um campo obrigatório')
 })
 
 const initialValues = {
   name: '',
-  cellPhone: ''
+  cellphone: ''
 }
 
 export const CreateComandaForm = () => {
@@ -49,9 +49,9 @@ export const CreateComandaForm = () => {
         { errors.name && <p className='text-red-600'>{errors.name}</p>}
       </div>
       <div className='flex flex-col'>
-        <label htmlFor="cellPhone">Celular</label>
-        <Input autoComplete='off' name="cellPhone" value={values.cellPhone} onChange={handleChange}/>
-        { errors.cellPhone && <p className='text-red-600'>{errors.cellPhone}</p>}
+        <label htmlFor="cellphone">Celular</label>
+        <Input autoComplete='off' name="cellphone" value={values.cellphone} onChange={handleChange} placeholder='+55 (13) 99151-9213'/>
+        { errors.cellphone && <p className='text-red-600'>{errors.cellphone}</p>}
       </div>
       <div className='flex space-x-4 pt-4'>
         <Button className='w-full bg-red-500' onClick={closeModal} type='button'>Cancelar</Button>

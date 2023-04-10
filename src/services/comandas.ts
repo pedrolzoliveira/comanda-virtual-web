@@ -4,7 +4,7 @@ import { type Transaction } from '../types/transaction'
 
 interface CreateComandaData {
   name: string
-  cellPhone: string
+  cellphone: string
 }
 
 interface AddPaymentData {
