@@ -51,7 +51,7 @@ export const AddPaymentForm = ({ comandaId }: AddPaymentFormProps) => {
       <Title className='pb-6'>Adicione um pagamento</Title>
       <div className='flex flex-col'>
         <label htmlFor="description">Descrição</label>
-        <Input name="description" value={values.description} onChange={handleChange}/>
+        <Input autoComplete='off' name="description" value={values.description} onChange={handleChange}/>
         { errors.description && <p className='text-red-600'>{errors.description}</p> }
       </div>
       <div className='flex flex-col'>

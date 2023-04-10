@@ -45,12 +45,12 @@ export const CreateComandaForm = () => {
       <Title className='pb-6'>Crie uma comanda</Title>
       <div className='flex flex-col'>
         <label htmlFor="name">Nome</label>
-        <Input name="name" value={values.name} onChange={handleChange}/>
+        <Input autoComplete='off' name="name" value={values.name} onChange={handleChange}/>
         { errors.name && <p className='text-red-600'>{errors.name}</p>}
       </div>
       <div className='flex flex-col'>
         <label htmlFor="cellPhone">Celular</label>
-        <Input name="cellPhone" value={values.cellPhone} onChange={handleChange}/>
+        <Input autoComplete='off' name="cellPhone" value={values.cellPhone} onChange={handleChange}/>
         { errors.cellPhone && <p className='text-red-600'>{errors.cellPhone}</p>}
       </div>
       <div className='flex space-x-4 pt-4'>
