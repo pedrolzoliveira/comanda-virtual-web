@@ -1,17 +1,18 @@
-import { type FC } from 'react'
+import { type DetailedHTMLProps, type InputHTMLAttributes, type FC, type ChangeEvent } from 'react'
 import { formatCents } from '../formatter/currency'
+import { NOT_DIGIT_REGEX } from '../regex'
 
 type CurrencyInputProps = {
   value: number
   onChange: (cents: number) => void
-} & Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'value' | 'onChange'>
+} & Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'value' | 'onChange'>
 
 export const CurrencyInput: FC<CurrencyInputProps> = props => {
   const valueFormatted = formatCents(props.value)
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const cents = Number(
-      e.target.value.replace(/[\D]*/g, '')
+      e.target.value.replace(NOT_DIGIT_REGEX, '')
     )
 
     props.onChange(cents)

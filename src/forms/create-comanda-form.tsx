@@ -6,6 +6,7 @@ import { useModal } from '../hooks/modal-hooks'
 import { Input } from '../components/input'
 import { useFormik } from 'formik'
 import { Title } from '../components/title'
+import { PhoneInput } from '../components/phone-input'
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Nome é um campo obrigatório'),
@@ -23,6 +24,7 @@ export const CreateComandaForm = () => {
   const {
     handleSubmit,
     handleChange,
+    setFieldValue,
     values,
     errors
   } = useFormik({
@@ -50,7 +52,7 @@ export const CreateComandaForm = () => {
       </div>
       <div className='flex flex-col'>
         <label htmlFor="cellphone">Celular</label>
-        <Input autoComplete='off' name="cellphone" value={values.cellphone} onChange={handleChange} placeholder='+55 (13) 99151-9213'/>
+        <PhoneInput autoComplete='off' name="cellphone" value={values.cellphone} onChange={phone => { setFieldValue('cellphone', phone) }} placeholder='(99) 99999-9999'/>
         { errors.cellphone && <p className='text-red-600'>{errors.cellphone}</p>}
       </div>
       <div className='flex space-x-4 pt-4'>
