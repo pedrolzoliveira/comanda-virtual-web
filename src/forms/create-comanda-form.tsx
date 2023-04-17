@@ -52,7 +52,7 @@ export const CreateComandaForm = () => {
       </div>
       <div className='flex flex-col'>
         <label htmlFor="cellphone">Celular</label>
-        <PhoneInput autoComplete='off' name="cellphone" value={values.cellphone} onChange={phone => { setFieldValue('cellphone', phone) }} placeholder='(99) 99999-9999'/>
+        <PhoneInput name="cellphone" value={values.cellphone} onChange={phone => { setFieldValue('cellphone', phone) }}/>
         { errors.cellphone && <p className='text-red-600'>{errors.cellphone}</p>}
       </div>
       <div className='flex space-x-4 pt-4'>
