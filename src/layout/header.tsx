@@ -9,7 +9,7 @@ export const Header = () => {
   }
 
   return (
-    <header className="bg-blue-500 p-2 text-white">
+    <header className="bg-blue-500 py-2 px-3 text-white">
       <button onClick={handleCriarComanda}>
         Criar comanda
       </button>
