@@ -9,8 +9,8 @@ import { CurrencyInput } from '../components/currency-input'
 import { Title } from '../components/title'
 
 const validationSchema = Yup.object().shape({
-  description: Yup.string(),
-  value: Yup.number()
+  description: Yup.string().trim().required('Descrição é obrigatória'),
+  value: Yup.number().min(1, 'Valor é obrigatório').required('Valor é obrigatório')
 })
 
 const initialValues = {
@@ -34,9 +34,9 @@ export const AddChargeForm = ({ comandaId }: AddChargeFormProps) => {
   } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async ({ description, value }) => {
+    onSubmit: async (values) => {
       try {
-        await addCharge({ comandaId, description, value })
+        await addCharge({ comandaId, ...validationSchema.cast(values) })
         closeModal()
       } catch (error) {
         if (error instanceof Error) {

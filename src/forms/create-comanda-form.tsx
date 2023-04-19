@@ -9,7 +9,7 @@ import { Title } from '../components/title'
 import { PhoneInput } from '../components/phone-input'
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Nome é um campo obrigatório'),
+  name: Yup.string().trim().required('Nome é um campo obrigatório'),
   cellphone: Yup.string().required('Celular é um campo obrigatório')
 })
 
@@ -32,7 +32,9 @@ export const CreateComandaForm = () => {
     validationSchema,
     onSubmit: async values => {
       try {
-        await create(values)
+        await create(
+          validationSchema.cast(values)
+        )
         closeModal()
       } catch (error) {
         if (error instanceof Error) {
