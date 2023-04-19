@@ -10,7 +10,7 @@ import { PhoneInput } from '../components/phone-input'
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().trim().required('Nome é um campo obrigatório'),
-  cellphone: Yup.string().required('Celular é um campo obrigatório')
+  cellphone: Yup.string().min(11, 'Adicione um celular válido').required('Celular é um campo obrigatório')
 })
 
 const initialValues = {
