@@ -26,7 +26,8 @@ export const CreateComandaForm = () => {
     handleChange,
     setFieldValue,
     values,
-    errors
+    errors,
+    touched
   } = useFormik({
     initialValues,
     validationSchema,
@@ -55,7 +56,7 @@ export const CreateComandaForm = () => {
       <div className='flex flex-col'>
         <label htmlFor="cellphone">Celular</label>
         <PhoneInput autoComplete='off' name="cellphone" value={values.cellphone} onChange={phone => { setFieldValue('cellphone', phone) }}/>
-        { errors.cellphone && <p className='text-red-600'>{errors.cellphone}</p>}
+        { touched.cellphone && errors.cellphone && <p className='text-red-600'>{errors.cellphone}</p>}
       </div>
       <div className='flex space-x-4 pt-4'>
         <Button className='w-full bg-red-500' onClick={closeModal} type='button'>Cancelar</Button>
