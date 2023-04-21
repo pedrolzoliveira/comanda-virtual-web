@@ -10,9 +10,9 @@ export const MODAL_TYPES = {
 } as const
 
 type ModalDataRelation =
-  [typeof MODAL_TYPES['CREATE_COMANDA']] |
-  [typeof MODAL_TYPES['ADD_CHARGE'], AddChargeModalProps] |
-  [typeof MODAL_TYPES['ADD_PAYMENT'], AddPaymentModalProps]
+  [model: typeof MODAL_TYPES['CREATE_COMANDA']] |
+  [model: typeof MODAL_TYPES['ADD_CHARGE'], data: AddChargeModalProps] |
+  [model: typeof MODAL_TYPES['ADD_PAYMENT'], data: AddPaymentModalProps]
 
 interface ModalContextValues {
   openModal: (...params: ModalDataRelation) => void
