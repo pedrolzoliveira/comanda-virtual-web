@@ -5,10 +5,15 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
-    gridTemplateColumns: ({ theme }) => ({
-      fill: 'repeat(auto-fill, 18rem)'
-    }),
-    extend: {}
+    extend: {
+      gridTemplateColumns: ({ theme }) =>
+        Object.entries(
+          theme('spacing')
+        ).reduce((styleConfig, [key, value]) => {
+          styleConfig[`fill-${key}`] = `repeat(auto-fill, ${value})`
+          return styleConfig
+        }, {})
+    }
   },
   plugins: []
 }
