@@ -16,7 +16,7 @@ export const ComandaCard = (props: Comanda) => {
   }
 
   return (
-    <div className='flex h-52 w-72 flex-col items-center justify-center space-y-4 rounded border bg-gray-100/20 pt-6 pb-4'>
+    <div className='flex h-52 w-72 flex-col items-center justify-center space-y-4 rounded border bg-white pt-6 pb-4'>
       <p className='text-ellipsis'>{props.name}</p>
       <div className='flex flex-col items-center'>
         <p className='text-2xl'>{formatCents(props.amount)}</p>

@@ -9,7 +9,7 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header/>
-      <main>
+      <main className='grow bg-gray-100'>
         {children}
       </main>
     </>
