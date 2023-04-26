@@ -10,8 +10,6 @@ interface ComandaDetailsProps {
   id: string
 }
 
-const formatter = new Intl.DateTimeFormat('pt-BR')
-
 const ComandaDetailsSkeleton = () => {
   return (
     <div className='animate-pulse space-y-2'>
@@ -60,6 +58,7 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
         </div>
 
       </div>
+      <p className='flex w-full items-center justify-center text-sm text-gray-400'>Comanda criada em {new Date(comanda.createdAt).toLocaleString()}</p>
       <div className='overflow-x-auto rounded shadow'>
         <table className='w-full text-left text-sm text-gray-500 dark:text-gray-400'>
           <thead className='bg-gray-50 text-xs uppercase text-gray-700'>
@@ -80,7 +79,7 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
                     </td>
                     <td className='px-6 py-4'>{transaction.description}</td>
                     <td className='px-6 py-4'>{formatCents(transaction.amount)}</td>
-                    <td className='px-6 py-4'>{formatter.format(new Date(transaction.createdAt))}</td>
+                    <td className='px-6 py-4'>{new Date(transaction.createdAt).toLocaleString()}</td>
                   </tr>
                 )
               })
