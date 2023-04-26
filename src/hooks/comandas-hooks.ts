@@ -15,7 +15,7 @@ export const useCreateComanda = () => {
   return useMutation({
     mutationFn: comandasService.create,
     onSuccess: () => {
-      query.invalidateQueries(['comandas'])
+      query.invalidateQueries('comandas')
     }
   })
 }
@@ -25,8 +25,9 @@ export const useAddPayment = () => {
 
   return useMutation({
     mutationFn: comandasService.addPayment,
-    onSuccess: () => {
-      query.invalidateQueries(['comandas'])
+    onSuccess: ({ comandaId }) => {
+      query.invalidateQueries('comandas')
+      query.invalidateQueries(`comanda-${comandaId}`)
     }
   })
 }
@@ -36,8 +37,9 @@ export const useAddCharge = () => {
 
   return useMutation({
     mutationFn: comandasService.addCharge,
-    onSuccess: () => {
-      query.invalidateQueries(['comandas'])
+    onSuccess: ({ comandaId }) => {
+      query.invalidateQueries('comandas')
+      query.invalidateQueries(`comanda-${comandaId}`)
     }
   })
 }
