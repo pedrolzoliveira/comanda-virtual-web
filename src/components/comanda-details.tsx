@@ -39,7 +39,7 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
 
   return (
     <div className='flex flex-col space-y-4'>
-      <div className='flex space-x-10'>
+      <div className='flex justify-evenly space-x-10'>
         <div className='flex flex-col space-y-3'>
           <div className='flex flex-col'>
             <label>Nome</label>
