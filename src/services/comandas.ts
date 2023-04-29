@@ -7,6 +7,12 @@ interface CreateComandaData {
   cellphone: string
 }
 
+interface EditComandaData {
+  id: string
+  name: string
+  cellphone: string
+}
+
 interface AddPaymentData {
   comandaId: string
   description: string
@@ -43,6 +49,18 @@ export const comandasService = {
   create: async (data: CreateComandaData) => {
     try {
       const response = await axios.post<Comanda>('http://localhost:3030/comandas', data)
+      return response.data
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 409) {
+        throw new Error('Celular já cadastrado')
+      }
+
+      throw error
+    }
+  },
+  update: async (data: EditComandaData) => {
+    try {
+      const response = await axios.put<Comanda>('http://localhost:3030/comandas', data)
       return response.data
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 409) {

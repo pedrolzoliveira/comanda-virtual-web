@@ -1,4 +1,4 @@
-import { useCreateComanda } from '../hooks/comandas-hooks'
+import { useEditComanda } from '../hooks/comandas-hooks'
 import { Button } from '../components/button'
 import { toast } from 'react-toastify'
 import { useModal } from '../hooks/modal-hooks'
@@ -8,13 +8,14 @@ import { Title } from '../components/title'
 import { PhoneInput } from '../components/phone-input'
 import { comandaSchema } from '../schemas/comandaSchemas'
 
-const initialValues = {
-  name: '',
-  cellphone: ''
+interface EditComandaFormProps {
+  comandaId: string
+  name: string
+  cellphone: string
 }
 
-export const CreateComandaForm = () => {
-  const { mutateAsync: create } = useCreateComanda()
+export const EditComandaForm = ({ comandaId, name, cellphone }: EditComandaFormProps) => {
+  const { mutateAsync: update } = useEditComanda()
   const { closeModal } = useModal()
   const {
     handleSubmit,
@@ -24,13 +25,11 @@ export const CreateComandaForm = () => {
     errors,
     touched
   } = useFormik({
-    initialValues,
+    initialValues: { name, cellphone },
     validationSchema: comandaSchema,
     onSubmit: async values => {
       try {
-        await create(
-          comandaSchema.cast(values)
-        )
+        await update({ id: comandaId, ...comandaSchema.cast(values) })
         closeModal()
       } catch (error) {
         if (error instanceof Error) {
@@ -42,7 +41,7 @@ export const CreateComandaForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className='flex w-96 flex-col space-y-3'>
-      <Title className='pb-6'>Crie uma comanda</Title>
+      <Title className='pb-6'>Editar comanda</Title>
       <div className='flex flex-col'>
         <label htmlFor="name">Nome</label>
         <Input autoComplete='off' name="name" value={values.name} onChange={handleChange}/>
@@ -55,7 +54,7 @@ export const CreateComandaForm = () => {
       </div>
       <div className='flex space-x-4 pt-4'>
         <Button className='w-full bg-red-500' onClick={closeModal} type='button'>Cancelar</Button>
-        <Button className='w-full' type='submit'>Criar</Button>
+        <Button className='w-full' type='submit'>Salvar</Button>
       </div>
     </form>
   )

@@ -9,7 +9,7 @@ export const Comanda = () => {
   }
 
   return (
-    <div className='flex w-full justify-center pt-8'>
+    <div className='flex h-full w-full justify-center pt-8'>
       <ComandaDetails id={id}/>
     </div>
   )

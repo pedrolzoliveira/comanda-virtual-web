@@ -1,12 +1,12 @@
-import { formatCents } from '../formatter/currency'
-import { useComanda } from '../hooks/comandas-hooks'
-import { type ComandaWithTransactions } from '../types/comanda'
+import { useRef } from 'react'
+import { AiOutlineEdit } from 'react-icons/ai'
 import { Input } from './input'
 import { PhoneInput } from './phone-input'
 import { Button } from './button'
+import { formatCents } from '../formatter/currency'
+import { useComanda } from '../hooks/comandas-hooks'
+import { type ComandaWithTransactions } from '../types/comanda'
 import { useModal } from '../hooks/modal-hooks'
-import { AiOutlineEdit } from 'react-icons/ai'
-import { useRef } from 'react'
 interface ComandaDetailsProps {
   id: string
 }
@@ -19,6 +19,12 @@ const ComandaDetailsSkeleton = () => {
     </div>
   )
 }
+
+const TRANSACTIONS_LABEL = {
+  charge: 'Cobrança',
+  payment: 'Pagamento',
+  adjustment: 'Ajuste'
+} as const
 
 export const ComandaDetails = (props: ComandaDetailsProps) => {
   const { data: comanda, isLoading } = useComanda(props.id, true)
@@ -39,36 +45,40 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
   }
 
   const handleEdit = () => {
-    inputRef.current?.focus()
+    openModal('edit-comanda', { comandaId: comanda.id, name: comanda.name, cellphone: comanda.cellphone })
   }
 
   return (
-    <div className='flex flex-col space-y-4'>
-      <div className='flex w-full justify-end'>
+    <div className='flex h-full w-2/3 flex-col space-y-4'>
+      <div className='w-full'>
         <Button onClick={handleEdit}><AiOutlineEdit/></Button>
       </div>
-      <div className='flex justify-evenly space-x-10'>
-        <div className='flex flex-col space-y-3'>
+      <div className='flex justify-between space-x-10 pb-6'>
+        <div className='flex w-1/3 flex-col justify-end space-y-3'>
           <div className='flex flex-col'>
             <label>Nome</label>
-            <Input value={comanda.name} />
+            <Input readOnly value={comanda.name} />
           </div>
           <div className='flex flex-col'>
             <label>Celular</label>
-            <PhoneInput ref={inputRef} value={comanda.cellphone} onChange={() => {}}/>
+            <PhoneInput readOnly ref={inputRef} value={comanda.cellphone}/>
           </div>
         </div>
-        <div className='flex flex-col items-center justify-center'>
-          <p className='text-2xl'>{formatCents(comanda.amount)}</p>
+        <div className='flex w-1/3 flex-col items-center justify-center'>
+          <p className='text-3xl'>{formatCents(comanda.amount)}</p>
           <p className='text-sm text-gray-400'>a receber</p>
-          <div className='mt-4 flex w-full space-x-4'>
+        </div>
+        <div className='flex w-1/3 flex-col justify-center'>
+          <div className='my-4 flex w-full space-x-4'>
             <Button onClick={handleAddPayment} className='w-full'>Receber</Button>
             <Button onClick={handleAddCharge} className='w-full'>Cobrar</Button>
           </div>
+          <div className=' w-full'>
+            <Button className='w-full'>Ajustar</Button>
+          </div>
         </div>
       </div>
-      <p className='flex w-full items-center justify-center text-sm text-gray-400'>Comanda criada em {new Date(comanda.createdAt).toLocaleString()}</p>
-      <div className='h-[620px] overflow-y-scroll rounded shadow'>
+      <div className='h-2/3 max-h-[600px] overflow-y-scroll rounded shadow'>
         <table className='w-full text-left text-sm text-gray-500 dark:text-gray-400'>
           <thead className='sticky top-0 z-0 bg-gray-50 text-xs uppercase text-gray-700'>
             <tr>
@@ -83,9 +93,7 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
               (comanda as ComandaWithTransactions).transactions.map(transaction => {
                 return (
                   <tr key={transaction.id} className='border-b bg-white'>
-                    <td className='px-6 py-4'>
-                      { transaction.type === 'charge' ? 'Cobrança' : 'Pagamento' }
-                    </td>
+                    <td className='px-6 py-4'>{TRANSACTIONS_LABEL[transaction.type]}</td>
                     <td className='px-6 py-4'>{transaction.description}</td>
                     <td className='px-6 py-4'>{formatCents(transaction.amount)}</td>
                     <td className='px-6 py-4'>{new Date(transaction.createdAt).toLocaleString()}</td>
@@ -96,6 +104,7 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
           </tbody>
         </table>
       </div>
+      <p className='text-sm text-gray-400'>Comanda criada em {new Date(comanda.createdAt).toLocaleString()}</p>
     </div>
   )
 }

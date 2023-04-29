@@ -4,7 +4,7 @@ import { type NumberFormatValues, PatternFormat, type InputAttributes } from 're
 
 type PhoneInputProps = {
   value: string
-  onChange: (phone: string) => void
+  onChange?: (phone: string) => void
 } & Omit<InputAttributes, 'format' | 'value' | 'onChange' | 'type'>
 
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
@@ -12,7 +12,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
     const [valueFormatted, setValueFormatted] = useState(value)
 
     const handleValueChange = ({ formattedValue, value }: NumberFormatValues) => {
-      onChange(value)
+      onChange?.(value)
       setValueFormatted(formattedValue)
     }
 

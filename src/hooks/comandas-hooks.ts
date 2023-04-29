@@ -55,3 +55,15 @@ export const useAddAdjustment = () => {
     }
   })
 }
+
+export const useEditComanda = () => {
+  const query = useQueryClient()
+
+  return useMutation({
+    mutationFn: comandasService.update,
+    onSuccess: ({ id }) => {
+      query.invalidateQueries('comandas')
+      query.invalidateQueries(`comanda-${id}`)
+    }
+  })
+}
