@@ -9,7 +9,7 @@ type CurrencyInputProps = {
 } & Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'value' | 'onChange'>
 
 export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
-  (props, ref?) => {
+  (props, ref) => {
     const valueFormatted = formatCents(props.value)
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {

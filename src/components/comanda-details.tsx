@@ -6,6 +6,7 @@ import { PhoneInput } from './phone-input'
 import { Button } from './button'
 import { useModal } from '../hooks/modal-hooks'
 import { AiOutlineEdit } from 'react-icons/ai'
+import { useRef } from 'react'
 interface ComandaDetailsProps {
   id: string
 }
@@ -23,6 +24,8 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
   const { data: comanda, isLoading } = useComanda(props.id, true)
   const { openModal } = useModal()
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
   if (isLoading || !comanda) {
     return <ComandaDetailsSkeleton/>
   }
@@ -35,7 +38,9 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
     openModal('add-charge', { comandaId: props.id })
   }
 
-  const handleEdit = () => {}
+  const handleEdit = () => {
+    inputRef.current?.focus()
+  }
 
   return (
     <div className='flex flex-col space-y-4'>
@@ -46,11 +51,11 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
         <div className='flex flex-col space-y-3'>
           <div className='flex flex-col'>
             <label>Nome</label>
-            <Input value={comanda.name}/>
+            <Input value={comanda.name} />
           </div>
           <div className='flex flex-col'>
             <label>Celular</label>
-            <PhoneInput value={comanda.cellphone} onChange={() => {}}/>
+            <PhoneInput ref={inputRef} value={comanda.cellphone} onChange={() => {}}/>
           </div>
         </div>
         <div className='flex flex-col items-center justify-center'>
