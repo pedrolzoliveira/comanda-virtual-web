@@ -44,6 +44,10 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
     openModal('add-charge', { comandaId: props.id })
   }
 
+  const handleAdjustAmount = () => {
+    openModal('adjust-comanda-amount', { id: comanda.id, amount: comanda.amount })
+  }
+
   const handleEdit = () => {
     openModal('edit-comanda', { comandaId: comanda.id, name: comanda.name, cellphone: comanda.cellphone })
   }
@@ -74,7 +78,7 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
             <Button onClick={handleAddCharge} className='w-full'>Cobrar</Button>
           </div>
           <div className=' w-full'>
-            <Button className='w-full'>Ajustar</Button>
+            <Button className='w-full' onClick={handleAdjustAmount}>Ajustar</Button>
           </div>
         </div>
       </div>

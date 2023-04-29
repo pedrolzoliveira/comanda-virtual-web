@@ -3,10 +3,12 @@ import { AddChargeModal, type AddChargeModalProps } from './add-charge-modal'
 import { AddPaymentModal, type AddPaymentModalProps } from './add-payment-modal'
 import { CreateComandaModal } from './create-comanda-modal'
 import { EditComandaModal, type EditComandaModalProps } from './edit-comanda-modal'
+import { AdjustComandaAmountModal, type AdjustComandaAmountModalProps } from './adjust-comanda-amount-modal'
 
 export const MODAL_TYPES = {
   CREATE_COMANDA: 'create-comanda',
   EDIT_COMANDA: 'edit-comanda',
+  ADJUST_COMANDA_AMOUNT: 'adjust-comanda-amount',
   ADD_CHARGE: 'add-charge',
   ADD_PAYMENT: 'add-payment'
 } as const
@@ -14,6 +16,7 @@ export const MODAL_TYPES = {
 type ModalDataRelation =
   [model: typeof MODAL_TYPES['CREATE_COMANDA']] |
   [model: typeof MODAL_TYPES['EDIT_COMANDA'], data: EditComandaModalProps] |
+  [model: typeof MODAL_TYPES['ADJUST_COMANDA_AMOUNT'], data: AdjustComandaAmountModalProps] |
   [model: typeof MODAL_TYPES['ADD_CHARGE'], data: AddChargeModalProps] |
   [model: typeof MODAL_TYPES['ADD_PAYMENT'], data: AddPaymentModalProps]
 
@@ -43,6 +46,9 @@ const ShowModal = (props: ShowModalProps) => {
     }
     case 'edit-comanda': {
       return <EditComandaModal {...data}/>
+    }
+    case 'adjust-comanda-amount': {
+      return <AdjustComandaAmountModal {...data}/>
     }
     case 'add-charge': {
       return <AddChargeModal {...data}/>

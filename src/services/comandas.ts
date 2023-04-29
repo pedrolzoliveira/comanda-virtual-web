@@ -7,10 +7,15 @@ interface CreateComandaData {
   cellphone: string
 }
 
-interface EditComandaData {
+interface UpdateComandaData {
   id: string
   name: string
   cellphone: string
+}
+
+interface AdjustAmountData {
+  id: string
+  amount: number
 }
 
 interface AddPaymentData {
@@ -58,7 +63,7 @@ export const comandasService = {
       throw error
     }
   },
-  update: async (data: EditComandaData) => {
+  update: async (data: UpdateComandaData) => {
     try {
       const response = await axios.put<Comanda>('http://localhost:3030/comandas', data)
       return response.data
@@ -69,6 +74,10 @@ export const comandasService = {
 
       throw error
     }
+  },
+  adjustAmount: async (data: AdjustAmountData) => {
+    const response = await axios.put<Comanda>('http://localhost:3030/comandas/adjust', data)
+    return response.data
   },
   addPayment: async (data: AddPaymentData) => {
     const response = await axios.post<Transaction & { type: 'payment' }>('http://localhost:3030/comandas/payments', data)
