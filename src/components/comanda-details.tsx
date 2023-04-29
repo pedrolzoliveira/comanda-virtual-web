@@ -5,7 +5,7 @@ import { Input } from './input'
 import { PhoneInput } from './phone-input'
 import { Button } from './button'
 import { useModal } from '../hooks/modal-hooks'
-
+import { AiOutlineEdit } from 'react-icons/ai'
 interface ComandaDetailsProps {
   id: string
 }
@@ -27,16 +27,21 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
     return <ComandaDetailsSkeleton/>
   }
 
-  const handleReceber = () => {
+  const handleAddPayment = () => {
     openModal('add-payment', { comandaId: props.id })
   }
 
-  const handleCobrar = () => {
+  const handleAddCharge = () => {
     openModal('add-charge', { comandaId: props.id })
   }
 
+  const handleEdit = () => {}
+
   return (
     <div className='flex flex-col space-y-4'>
+      <div className='flex w-full justify-end'>
+        <Button onClick={handleEdit}><AiOutlineEdit/></Button>
+      </div>
       <div className='flex justify-evenly space-x-10'>
         <div className='flex flex-col space-y-3'>
           <div className='flex flex-col'>
@@ -52,16 +57,15 @@ export const ComandaDetails = (props: ComandaDetailsProps) => {
           <p className='text-2xl'>{formatCents(comanda.amount)}</p>
           <p className='text-sm text-gray-400'>a receber</p>
           <div className='mt-4 flex w-full space-x-4'>
-            <Button onClick={handleReceber} className='w-full'>Receber</Button>
-            <Button onClick={handleCobrar} className='w-full'>Cobrar</Button>
+            <Button onClick={handleAddPayment} className='w-full'>Receber</Button>
+            <Button onClick={handleAddCharge} className='w-full'>Cobrar</Button>
           </div>
         </div>
-
       </div>
       <p className='flex w-full items-center justify-center text-sm text-gray-400'>Comanda criada em {new Date(comanda.createdAt).toLocaleString()}</p>
-      <div className='overflow-x-auto rounded shadow'>
+      <div className='h-[620px] overflow-y-scroll rounded shadow'>
         <table className='w-full text-left text-sm text-gray-500 dark:text-gray-400'>
-          <thead className='bg-gray-50 text-xs uppercase text-gray-700'>
+          <thead className='sticky top-0 z-0 bg-gray-50 text-xs uppercase text-gray-700'>
             <tr>
               <th className='px-6 py-3'>Tipo</th>
               <th className='px-6 py-3'>Descrição</th>

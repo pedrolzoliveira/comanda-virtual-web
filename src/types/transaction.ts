@@ -3,6 +3,6 @@ export interface Transaction {
   comandaId: string
   description: string
   amount: number
-  type: 'payment' | 'charge'
+  type: 'payment' | 'charge' | 'adjustment'
   createdAt: string
 }

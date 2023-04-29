@@ -43,3 +43,15 @@ export const useAddCharge = () => {
     }
   })
 }
+
+export const useAddAdjustment = () => {
+  const query = useQueryClient()
+
+  return useMutation({
+    mutationFn: comandasService.addAdjustment,
+    onSuccess: ({ comandaId }) => {
+      query.invalidateQueries('comandas')
+      query.invalidateQueries(`comanda-${comandaId}`)
+    }
+  })
+}

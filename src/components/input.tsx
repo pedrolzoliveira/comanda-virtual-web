@@ -1,5 +1,8 @@
-import { type FC } from 'react'
+/* eslint-disable react/display-name */
+import { forwardRef, type InputHTMLAttributes } from 'react'
 
-export const Input: FC<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>> = (props) => {
-  return <input {...props} className={`rounded border px-3 py-2 ${props.className ?? ''}`}></input>
-}
+export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
+  (props, ref?) => {
+    return <input {...props} ref={ref} className={`rounded border px-3 py-2 ${props.className ?? ''}`}/>
+  }
+)

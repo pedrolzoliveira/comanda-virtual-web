@@ -19,6 +19,11 @@ interface AddChargeData {
   value: number
 }
 
+interface AddAdjustmentData {
+  comandaId: string
+  value: number
+}
+
 export const comandasService = {
   getById: async (id: string, includeTransactions = false) => {
     const url = new URL('http://localhost:3030/comandas')
@@ -53,6 +58,10 @@ export const comandasService = {
   },
   addCharge: async (data: AddChargeData) => {
     const response = await axios.post<Transaction & { type: 'charge' }>('http://localhost:3030/comandas/charges', data)
+    return response.data
+  },
+  addAdjustment: async (data: AddAdjustmentData) => {
+    const response = await axios.post<Transaction & { type: 'adjustment' }>('http://localhost:3030/comandas/adjustments', data)
     return response.data
   }
 } as const
